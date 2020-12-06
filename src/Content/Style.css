@@ -1,0 +1,17 @@
+.content {
+    padding: 20px;
+    margin-left: auto;
+    height: auto;
+}
+
+.sidebar-is-open {
+    margin-left: 250px;
+    width: auto;
+}
+  
+@media only screen and (max-width: 500px) {
+    .sidebar-is-open {
+      margin-left: 100%;
+      width: auto;
+    }  
+}

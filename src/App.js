@@ -1,27 +1,27 @@
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 
-import { Container, Row, Col } from 'reactstrap';
+import { Container } from 'reactstrap'
 
-import  Header from './Header/Component';
-import Main from './Home/Component';
-import SideNav from './SideNav/Component';
+import Content from "./Content/Component";
+import SideBar from "./Views/sidebar/Component";
+import TopBar from './Views/Header/Component';
 
-function App() {
+import "./App.css";
+
+const App = () => {
+  const [ sidebarIsOpen, setSidebarOpen] = React.useState(true);
+  const toggleSidebar = () => setSidebarOpen( !sidebarIsOpen);
+
   return (
-    <Container fluid>
-            {/* <Row  className="sticky"> */}
-                <Header/>
-            {/* </Row> */}
-            <Row>
-                <Col className="sidenav">
-                    <SideNav />
-                </Col>
-                <Col className="main">
-                    <Main />
-                </Col>
-            </Row>
-    </Container>
+    <Router>
+      <Container fluid>
+        <TopBar toggleSidebar={toggleSidebar} />
+        <SideBar toggle={toggleSidebar} isOpen={sidebarIsOpen} />
+        <Content sidebarIsOpen={sidebarIsOpen} />
+      </Container>
+    </Router>
   );
-}
+};
 
 export default App;
