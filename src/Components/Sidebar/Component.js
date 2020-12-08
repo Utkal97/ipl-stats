@@ -20,26 +20,32 @@ const SideBar = ({ isOpen, toggle }) => (
         <p>Dummy Heading</p>
         <SubMenu title="Home" items={submenus[0]} />
         <NavItem>
-          <NavLink tag={Link} to={"/about"}>
-            About
-          </NavLink>
+            <NavLink tag={Link} to={"/Players"}>
+                Players
+            </NavLink>
         </NavItem>
+        <NavItem>
+            <NavLink tag={Link} to={"/Deliveries"}>
+                Deliveries
+            </NavLink>
+        </NavItem>
+        <NavItem>
+            <NavLink tag={Link} to={"/Matches"}>
+                Matches
+            </NavLink>
+        </NavItem>
+        <NavItem>
+            <NavLink tag={Link} to={"/Teams"}>
+                Teams
+            </NavLink>
+        </NavItem>
+        <NavItem>
+            <NavLink tag={Link} to={"/Strikerates"}>
+                Strikerates
+            </NavLink>
+        </NavItem>
+
         <SubMenu title="Pages" items={submenus[1]} />
-        <NavItem>
-          <NavLink tag={Link} to={"/pages"}>
-            Portfolio
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink tag={Link} to={"/faq"}>
-            FAQ
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink tag={Link} to={"/contact"}>
-            Contact
-          </NavLink>
-        </NavItem>
       </Nav>
     </div>
   </div>
