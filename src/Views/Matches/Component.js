@@ -51,7 +51,7 @@ class MatchList extends React.Component {
             });
 
             return (
-                <Table data = {data} columns={columns} />
+                <Table data = {data} columns={columns} pivot={["Season"]}/>
             );
         }
     }

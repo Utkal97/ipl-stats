@@ -24,24 +24,24 @@ const Topbar = ({ toggleSidebar }) => {
       expand="md"
       sticky="top"
     >
-      <Button color="info" onClick={toggleSidebar}>
-        <FontAwesomeIcon icon={faAlignLeft} />
-      </Button>
-      <NavbarToggler onClick={toggleTopbar} />
-      <Collapse isOpen={topbarIsOpen} navbar>
-        <Nav className="ml-auto" navbar>
-          <NavItem>
-            <NavLink tag={Link} to={"https://github.com/Utkal97"}>
-                Dev
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink tag={Link} to={"/about"}>
-                About us
-            </NavLink>
-          </NavItem>
-        </Nav>
-      </Collapse>
+        <Button color="info" onClick={toggleSidebar}>
+            <FontAwesomeIcon icon={faAlignLeft} />
+        </Button>
+        <NavbarToggler onClick={toggleTopbar} />
+        <Collapse isOpen={topbarIsOpen} navbar>
+            <Nav className="ml-auto" navbar>
+            <NavItem>
+                <NavLink href="https://github.com/Utkal97">
+                    Dev
+                </NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink tag={Link} to={"/about"}>
+                    About us
+                </NavLink>
+            </NavItem>
+            </Nav>
+        </Collapse>
     </Navbar>
   );
 };

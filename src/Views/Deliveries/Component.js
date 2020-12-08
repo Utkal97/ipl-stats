@@ -41,17 +41,15 @@ class DeliveryList extends React.Component {
 
         else {
             let columns = Object.keys(data[0]).map(attribute => {
-                return (
-                    {
+                return ({
                         Header: attribute,
                         accessor: attribute,
                         width: 100
-                    }
-                );
+                });
             });
 
             return (
-                <Table data = {data} columns={columns} />
+                <Table data={data} columns={columns} />
             );
         }
     }
@@ -70,7 +68,7 @@ const MapStateToProps = state => {
 const MapDispatchToProps = dispatch => ({
     getDeliveryList: () => dispatch(getDeliveryList()),
     deliveryListIsLoading: () => dispatch(deliveryListIsLoading()),
-    deliveryListLoadError: (error= "Error occured while loading Deliveries list") => dispatch(deliveryListLoadError(error))
+    deliveryListLoadError: (error= "Deliveries list") => dispatch(deliveryListLoadError(error))
 });
 
 export default connect(MapStateToProps, MapDispatchToProps)(DeliveryList);

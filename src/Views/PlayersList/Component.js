@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import {
     getPlayerList,
@@ -23,6 +24,7 @@ class PlayerList extends React.Component {
 
     render() {
         const data = this.props.player_list;
+
         if(this.props.is_player_list_loading || !data)
             return (
                 <LoadScreen />
@@ -40,17 +42,26 @@ class PlayerList extends React.Component {
 
         else {         
             let columns = Object.keys(data[0]).map(attribute => {
-                return (
-                    {
+                if(attribute!== "Player_Name")
+                    return (
+                        {
+                            Header: attribute,
+                            accessor: attribute,
+                            width: 100
+                        }
+                    );
+                else {
+                    return ({
                         Header: attribute,
                         accessor: attribute,
-                        width: 100
-                    }
-                );
+                        width: 100,
+                        Cell: (row) => (<Link to={{pathname:`/player/${row.value}`}}>{row.value}</Link>)
+                    })
+                }
             });
             
             return (
-                <ReactTable data={data} columns={columns} />
+                <ReactTable data={data} columns={columns} pivot={["Country"]} />
             );
         }
     }

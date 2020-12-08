@@ -9,6 +9,7 @@ import PlayersList from '../../Views/PlayersList/Component';
 import DeliveryList from '../../Views/Deliveries/Component';
 import MatchList from '../../Views/Matches/Component';
 import StrikerateList from '../../Views/Strikerates/Component';
+import Player from '../../Views/Player/Component';
 
 const Content = ({ sidebarIsOpen }) => (
 
@@ -22,6 +23,7 @@ const Content = ({ sidebarIsOpen }) => (
             <Route exact path="/Deliveries" component={DeliveryList} />
             <Route exact path="/Matches" component={MatchList} />
             <Route exact path="/Strikerates" component={StrikerateList} />
+            <Route exact path="/Player/:name" component={Player} />
             <Redirect to="/" />
         </Switch>
     

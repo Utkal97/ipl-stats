@@ -10,7 +10,7 @@ class Table extends React.Component {
     }
     
     render() {
-        const data = this.props.data, columns = this.props.columns;
+        const { data, columns, pivot} = this.props;
 
         return (
             <ReactTable
@@ -18,9 +18,16 @@ class Table extends React.Component {
                 data={data}
                 filterable
                 columns={columns}
+                pivotBy={pivot}
                 defaultPageSize={20}
                 noDataText={"Irrelevent filters (or) No data available"}
                 showPaginationTop
+
+                style={{
+                    height: "100vh",
+                    overflow: "hidden"
+                }}
+
             />
         )
     }

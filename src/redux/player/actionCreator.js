@@ -1,12 +1,24 @@
 import * as actionTypes from './actionTypes';
 
-export const getPlayerDetails = name => dispatch => {
+export const getPlayerDetails = name => async (dispatch) => {
+
     try {
-        const data = "player data";
-        dispatch(setPlayerDetails(data));
+        dispatch(playerIsLoading());
+        
+        let player_list_response = await fetch('http://localhost:3000/data/players.json');
+        let player_list_data = await player_list_response.json();
+
+        let strikerate_response = await fetch('http://localhost:3000/data/most_runs_average_strikerate.json');
+        let strikerate_data = await strikerate_response.json();
+
+        const player_details = player_list_data.find(player => player.Player_Name === name),
+                player_strikerate = strikerate_data.find(player => player.batsman === name);
+
+        console.log(player_strikerate, player_details);
+        dispatch(setPlayerDetails({player_details, player_strikerate}));
     }
     catch(error) {
-        console.log(error);
+        console.error(error);
         dispatch(playerLoadError("Error encountered while obtaining Player data"));
     }
 }
@@ -20,7 +32,7 @@ export const setPlayerDetails = (data) => {
 
 export const playerIsLoading = () => {
     return {
-        type: actionTypes.IS_PLAYER_LOADING
+        type: actionTypes.PLAYER_IS_LOADING
     }
 }
 
