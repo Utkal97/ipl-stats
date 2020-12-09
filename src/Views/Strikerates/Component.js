@@ -15,16 +15,21 @@ class StrikerateList extends React.Component {
 
     constructor(props) {
         super(props);
-        this.props.strikerateListIsLoading()
-    }
-    async componentDidMount() {
+        this.start_time = new Date();
+
+        this.props.strikerateListIsLoading();
         this.props.getStrikerateList();
     }
     
+    componentDidMount() {
+        let end_time = new Date();
+        console.log(`Load times for Strikerates: ${end_time - this.start_time} Milliseconds.`);
+    }
+
     shouldComponentUpdate(nextProps, nextState) {                   //The table should only re render when its props change
-        if(this.props.strikerate_list !== nextProps.strikerate_list) {
+        if(this.props.strikerate_list !== nextProps.strikerate_list)
             return true;
-        }
+
         else
             return false;
     }
@@ -34,7 +39,7 @@ class StrikerateList extends React.Component {
 
         if(this.props.is_strikerate_list_loading || !data)
             return (
-                <LoadScreen />
+                <LoadScreen content={"Strike Rates"} />
             );
                 
         else if(data.length === 0)
@@ -49,9 +54,13 @@ class StrikerateList extends React.Component {
 
         else {
             let columns = Object.keys(data[0]).map(attribute => {
+                let header = attribute;
+                if(attribute === "numberofballs")
+                    header = "No. of balls";
+
                 return (
                     {
-                        Header: attribute,
+                        Header: header,
                         accessor: attribute,
                         width: 100
                     }

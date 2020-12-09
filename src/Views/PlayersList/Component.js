@@ -15,12 +15,17 @@ class PlayerList extends React.Component {
 
     constructor(props) {
         super(props);
+        this.start_time = new Date();
         this.props.playerListIsLoading();
-    }
-
-    componentDidMount() {
         this.props.getPlayerList();
     }
+
+
+    componentDidMount() {
+        let end_time = new Date();
+        console.log(`Load times for Players List: ${end_time - this.start_time} Milliseconds.`);
+    }
+
 
     shouldComponentUpdate(nextProps, nextState) {                   //The table should only re render when its props change
         if(this.props.player_list !== nextProps.player_list)
@@ -34,7 +39,7 @@ class PlayerList extends React.Component {
 
         if(this.props.is_player_list_loading || !data)
             return (
-                <LoadScreen />
+                <LoadScreen content={"Players"}/>
             );
 
         else if( data.length === 0)

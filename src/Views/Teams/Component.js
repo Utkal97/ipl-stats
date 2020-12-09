@@ -14,11 +14,15 @@ class TeamList extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.start_time = new Date();       //compute start time to log load time
         this.props.teamListIsLoading();
+        this.props.getTeamList();
     }
 
-    async componentDidMount() {
-        await this.props.getTeamList();
+    componentDidMount() {
+        let end_time = new Date();          //compute time after rendering
+        console.log(`Load times for Teams list: ${end_time - this.start_time} Milliseconds.`);
     }
 
     shouldComponentUpdate(nextProps, nextState) {                   //The table should only re render when its props change

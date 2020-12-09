@@ -6,7 +6,7 @@ class LoadScreen extends React.Component {
             <Container className="load-screen">
                 <img src="./cricket_ball.gif" alt="A cricket ball loading GIF" />
                 <h3>
-                    Your component is loading...
+                Loading {this.props.content} ...
                 </h3>
             </Container>
         )

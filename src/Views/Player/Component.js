@@ -15,12 +15,16 @@ class Player extends React.Component {
 
     constructor(props) {
         super(props);
+        this.start_time = new Date();
+        const name = this.props.match.params.name;
+        this.props.getPlayerDetails(name);
     }
 
-    async componentDidMount() {
-        const name = this.props.match.params.name;
-        await this.props.getPlayerDetails(name);
+    componentDidMount() {
+        let end_time = new Date();
+        console.log(`Load times for Player Details: ${end_time - this.start_time} Milliseconds.`);
     }
+
 
     
     shouldComponentUpdate(nextProps, nextState) {                   //The table should only re render when its props change
@@ -36,7 +40,7 @@ class Player extends React.Component {
             
         if(this.props.is_player_loading || !data)
             return (
-                <LoadScreen />
+                <LoadScreen content={"Player details"}/>
             );
         else if(this.props.player_load_error)
             return (

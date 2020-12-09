@@ -15,16 +15,20 @@ class DeliveryList extends React.Component {
 
     constructor(props) {
         super(props);
-        this.props.deliveryListIsLoading()
-    }
-    async componentDidMount() {
+
+        this.start_time = new Date();                               //compute load time at start
+        this.props.deliveryListIsLoading();
         this.props.getDeliveryList();
     }
 
+    componentDidMount() {
+        let end_time = new Date();                                  //compute load time at end
+        console.log(`Load times for Delivery List: ${end_time - this.start_time} Milliseconds.`);
+    }
+
     shouldComponentUpdate(nextProps, nextState) {                   //The table should only re render when its props change
-        if(this.props.delivery_list !== nextProps.delivery_list) {
+        if(this.props.delivery_list !== nextProps.delivery_list)
             return true;
-        }
         else
             return false;
     }
@@ -34,7 +38,7 @@ class DeliveryList extends React.Component {
 
         if(this.props.is_delivery_list_loading || !data)
             return (
-                <LoadScreen />
+                <LoadScreen content={"Delivery record"} />
             );
                 
         else if(data.length === 0)

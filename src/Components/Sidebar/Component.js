@@ -20,8 +20,8 @@ const SideBar = ({ isOpen, toggle }) => (
         <p>What do you want to see?</p>
 
         <NavItem>
-            <NavLink tag={Link} to={"/Players"}>
-                Players
+            <NavLink tag={Link} to={"/Matches"}>
+                Matches
             </NavLink>
         </NavItem>
 
@@ -32,8 +32,14 @@ const SideBar = ({ isOpen, toggle }) => (
         </NavItem>
 
         <NavItem>
-            <NavLink tag={Link} to={"/Matches"}>
-                Matches
+            <NavLink tag={Link} to={"/Players"}>
+                Players
+            </NavLink>
+        </NavItem>
+
+        <NavItem>
+            <NavLink tag={Link} to={"/Strikerates"}>
+                Strikerates
             </NavLink>
         </NavItem>
 
@@ -43,11 +49,6 @@ const SideBar = ({ isOpen, toggle }) => (
             </NavLink>
         </NavItem>
 
-        <NavItem>
-            <NavLink tag={Link} to={"/Strikerates"}>
-                Strikerates
-            </NavLink>
-        </NavItem>
       </Nav>
     </div>
   </div>

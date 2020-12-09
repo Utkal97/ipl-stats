@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# Stat-IPL
+Stat-IPL is a client side Single Page Application built with Reactjs and Redux to view IPL statistics (based on this data). <br />
+The application is currently hosted on Heroku. Link: https://stat-ipl.herokuapp.com/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Technology Stack
+1) Reactjs,
+2) Redux (for universal state management ),
+3) Bootstrap (for responsive design)
 
-## Available Scripts
 
-In the project directory, you can run:
+### Challlenges and Optimization
+1) The given data consisted of excel files. I tried hard to read the files into redux state with `xlsx` library. After a day, I realized that the client side can't access local files without selection(selection is out of option since we can't put `<input type="file">` elements and make the user select data). The `fs` module just doesn't work in pure client-side application like this, because it would make a major security issue had it been supported (fs is powerful enough to make changes to local files). So, I converted the input excel files to json files and the data parsing became easy since I am using Javascript.
 
-### `npm start`
+2) The large json files: After converting the input data to json, the `deliveries.json` came out to be 112MB, which is performance hit on the browser. Also, GitHub doesn't allow upload of files above 100MB. I have used Git LFS (large file system) plugin to overcome this. Then came the other major issue: The heroku or any other deployment platform doesn't support tracking for large files as we do in local system deployment. So, I had comporessed the `deliveries.json` file by removing extra spaces, stringify it and re-parsed it to json. This had reduced the size of the file from 112MB to 70MB. This made one of the major impact.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+3) The optimization: Everytime react sees a change in state, it tries to re-render every child element of the DOM tree node. But we don't to re-render the large tables unnecessarily. One major demanding render in this application is "Deliveries" table. When I was toggling the Sidebar, I had noticed that the content component that contained Deliveries table re-rendered unnecessarily. This is a major friction on performance. So, I made all the components render only when the state they care about changes and prevent when irrelevant state components change. I have used `ShouldComponentUpdate` lifecycle method of a Class component that lets us choose when the re-render for the specified component must happen. This had improved the experience by a large extent. (If you are interested, you can try removing the `ShouldComponentUpdate` method in Deliveries Component and try toggling the side bar.)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+### Folder Structure
+The `/public/` folder contains the data for the project. The data given to me (from Kaggle) had csv and xlsx files, which I had converted to JSON files and stored in `/public/data` folder. <br />
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The folder structure of this application is mainly classified into 3 types:-
+1) Components : The rendering elements that form the layout of our application.
+2) Redux : Manages the whole state of the application
+3) Views : The individual components that take state as input and dictate how the content must be portrayed.
 
-### `npm run build`
+I have created a folder for each component since I didn't want to merge up Stylesheets and prevent it from becoming messy.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+##### Components
+Content : It is at Router that switches the views based on the given url. <br />
+Loading, Error : They are created in order to give a better experience to the user. <br />
+Table : This component is a headless UI component which takes in data and its attributes to display data while paginating it accordingly. <br />
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+##### Redux
+Redux consists of the data management. The elements of redux folder divided just as input files to avoid confusion. <br />
+ConfigStore.js takes in all the reducers and produces a combinedstore while applying Middlewares (`redux-thunk`).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+##### Views
+These are the content components that display data. <br />
 
-### `npm run eject`
+Deliveries: Shows the record of everyball of every match listed in the season. <br />
+Matches: Shows every match record in the season. <br />
+PlayersList: Shows all the players with their details. <br />
+Strikerates: Shows the total runs made by each player, his average score per ball and his strikerate average. This table is sorted in the decreasing order of Total Runs made by default. You can click on player name to display the player details component.<br />
+Teams: Lists all the teams and their win status. <br />
+Player details: This component is derived from Players list and Strikerates data. An individual player's data is reported here. <br />
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Setup
+1) Make sure you have Node and npm installed in your machine.
+2) Clone the repository.
+3) Run `npm install` to download all the dependencies.
+4) Run `npm start` to deploy locally. Access it at "http://localhost:3000/"
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+And you are good to go.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Load times
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The load times have been calculated using Profiler tab in React Dev Tools extension, which is believed to be the standard. Also, I have calculated them using my own approach (difference of times between `constructor` and `ComponentDidMount` lifecycle methods.)
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+On Localhost:
+1) Deliveries table: Render duration: 2460ms,
+2) Players List: 78ms,
+3) Matches: 267ms,
+4) Strikerates: 42ms,
+5) Teams: 17ms

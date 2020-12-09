@@ -15,12 +15,17 @@ class MatchList extends React.Component {
 
     constructor(props) {
         super(props);
-        this.props.matchListIsLoading()
-    }
+        this.start_time = new Date();       //compute load time from start
 
-    async componentDidMount() {
+        this.props.matchListIsLoading();
         this.props.getMatchList();
     }
+
+    componentDidMount() {
+        let end_time = new Date();          //compute time after rendering
+        console.log(`Load times for Matches: ${end_time - this.start_time} Milliseconds.`);
+    }
+
 
     shouldComponentUpdate(nextProps, nextState) {                   //The table should only re render when its props change
         if(this.props.match_list !== nextProps.match_list) {
@@ -35,7 +40,7 @@ class MatchList extends React.Component {
 
         if(this.props.is_match_list_loading || !data)
             return (
-                <LoadScreen />
+                <LoadScreen content={"Match records"}/>
             );
                 
         else if(data.length === 0)
