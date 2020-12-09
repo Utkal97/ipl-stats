@@ -21,6 +21,14 @@ class DeliveryList extends React.Component {
         this.props.getDeliveryList();
     }
 
+    shouldComponentUpdate(nextProps, nextState) {                   //The table should only re render when its props change
+        if(this.props.delivery_list !== nextProps.delivery_list) {
+            return true;
+        }
+        else
+            return false;
+    }
+
     render() {
         const data = this.props.delivery_list;
 
@@ -49,7 +57,7 @@ class DeliveryList extends React.Component {
             });
 
             return (
-                <Table data={data} columns={columns} />
+                <Table heading={"Deliveries"} data={data} columns={columns} />
             );
         }
     }

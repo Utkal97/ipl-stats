@@ -22,6 +22,14 @@ class Player extends React.Component {
         await this.props.getPlayerDetails(name);
     }
 
+    
+    shouldComponentUpdate(nextProps, nextState) {                   //The table should only re render when its props change
+        if(this.props.player_details !== nextProps.player_details)
+            return true;
+        else
+            return false;
+    }
+
     render() {
 
         const data = this.props.player_details;

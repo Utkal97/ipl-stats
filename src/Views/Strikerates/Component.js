@@ -20,7 +20,14 @@ class StrikerateList extends React.Component {
     async componentDidMount() {
         this.props.getStrikerateList();
     }
-
+    
+    shouldComponentUpdate(nextProps, nextState) {                   //The table should only re render when its props change
+        if(this.props.strikerate_list !== nextProps.strikerate_list) {
+            return true;
+        }
+        else
+            return false;
+    }
 
     render() {
         const data = this.props.strikerate_list;
@@ -37,7 +44,7 @@ class StrikerateList extends React.Component {
 
         else if(this.props.strikerate_list_load_error)
             return (
-                <Error content={"Deliveries list"} />
+                <Error content={"Strikerate list"} />
             );
 
         else {
@@ -52,7 +59,7 @@ class StrikerateList extends React.Component {
             });
 
             return (
-                <Table data = {data} columns={columns} />
+                <Table heading={"Highest Avg. Strike Rates"} data = {data} columns={columns} />
             );
         }
     }

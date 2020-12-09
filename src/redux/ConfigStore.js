@@ -6,13 +6,15 @@ import { playerListReducer } from './player_list/reducers';
 import { deliveryListReducer } from './delivery_list/reducers';
 import { matchListReducer } from './match_list/reducers';
 import { strikerateListReducer } from './strikerate_list/reducers';
+import { teamListReducer } from './team_list/reducers';
 
 const rootReducer = combineReducers({
     player: playerReducer,
     playerList: playerListReducer,
     deliveryList: deliveryListReducer,
     matchList: matchListReducer,
-    strikerateList: strikerateListReducer
+    strikerateList: strikerateListReducer,
+    teamList: teamListReducer
 });
 
 export const ConfigureStore = () => {

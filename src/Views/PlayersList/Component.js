@@ -22,6 +22,13 @@ class PlayerList extends React.Component {
         this.props.getPlayerList();
     }
 
+    shouldComponentUpdate(nextProps, nextState) {                   //The table should only re render when its props change
+        if(this.props.player_list !== nextProps.player_list)
+            return true;
+        else
+            return false;
+    }
+
     render() {
         const data = this.props.player_list;
 
@@ -61,7 +68,7 @@ class PlayerList extends React.Component {
             });
             
             return (
-                <ReactTable data={data} columns={columns} pivot={["Country"]} />
+                <ReactTable heading={"Players"} data={data} columns={columns} pivot={["Country"]} />
             );
         }
     }

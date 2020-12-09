@@ -17,8 +17,17 @@ class MatchList extends React.Component {
         super(props);
         this.props.matchListIsLoading()
     }
+
     async componentDidMount() {
         this.props.getMatchList();
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {                   //The table should only re render when its props change
+        if(this.props.match_list !== nextProps.match_list) {
+            return true;
+        }
+        else
+            return false;
     }
 
     render() {
@@ -51,7 +60,7 @@ class MatchList extends React.Component {
             });
 
             return (
-                <Table data = {data} columns={columns} pivot={["Season"]}/>
+                <Table heading={"Matches"} data = {data} columns={columns} pivot={["Season"]}/>
             );
         }
     }

@@ -7,6 +7,7 @@ import Home from '../../Views/Home/Component';
 import AboutUs from '../../Views/About us/Component';
 import PlayersList from '../../Views/PlayersList/Component';
 import DeliveryList from '../../Views/Deliveries/Component';
+import TeamList from '../../Views/Teams/Component';
 import MatchList from '../../Views/Matches/Component';
 import StrikerateList from '../../Views/Strikerates/Component';
 import Player from '../../Views/Player/Component';
@@ -24,6 +25,7 @@ const Content = ({ sidebarIsOpen }) => (
             <Route exact path="/Matches" component={MatchList} />
             <Route exact path="/Strikerates" component={StrikerateList} />
             <Route exact path="/Player/:name" component={Player} />
+            <Route exact path="/Teams" component={TeamList} />
             <Redirect to="/" />
         </Switch>
     
