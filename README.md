@@ -57,9 +57,11 @@ And you are good to go.
 
 The load times have been calculated using Profiler tab in React Dev Tools extension, which is believed to be the standard. Also, I have calculated them using my own approach (difference of times between `constructor` and `ComponentDidMount` lifecycle methods.)
 
-On Localhost:
-1) Deliveries table: Render duration: 2460ms,
-2) Players List: 78ms,
-3) Matches: 267ms,
-4) Strikerates: 42ms,
-5) Teams: 17ms
+
+| Component | Localhost (ms) | Heroku(free tier) (ms) |
+| --- | ----------- | ----- |
+| Deliveries | 2460 | 1903 |
+| Players List | 78 | 85 |
+| Matches | 267 | 272 |
+| Strikerates | 42 | 28 |
+| Teams | 17 | 18 |
